@@ -6,9 +6,10 @@
 #include <functional>
 #include <utility>
 
+// https://codereview.stackexchange.com/questions/109260/seed-stdmt19937-from-stdrandom-device
 class Random {
 private:
-    static std::seed_seq randomSeeds() { //Otterrò una sequenza di 624 semi, che darò al mersenne_twister_engine per generare numeri
+    static std::seed_seq randomSeeds() { //Get a sequence of Otterrò una sequenza di 624 semi, che darò al mersenne_twister_engine per generare numeri
         unsigned random_data[std::mt19937::state_size]; //Da essere riempito da dati casuali
         std::random_device source;      //Risorsa quasi affidabile per la generazioni di numeri casuali. Lento
         std::generate(std::begin(random_data), std::end(random_data), std::ref(source));    //Riempio l'array
