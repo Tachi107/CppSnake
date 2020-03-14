@@ -1,0 +1,38 @@
+#pragma once
+#include "Vertex"
+#include <utility>
+
+struct Quad {
+    Vertex vertices[4];
+
+    /*
+     * Questa funzione crea un quadrato prendendo come punto di partenza le coordinate in basso a sinistra,
+     * per poi definire le coordinate degli altri tre vertici distanziandosi un po' da quel punto
+     */
+    void make(const GLfloat x, const GLfloat y) {
+        vertices[0].setPosition(x, y);
+        vertices[1].setPosition(x + 0.1f, y);
+        vertices[2].setPosition(x + 0.1f, y + 0.1f);
+        vertices[3].setPosition(x, y + 0.1f);
+        
+        setColor(255, 128, 0);
+    }
+
+    void make(const GLfloat x, const GLfloat y, const GLubyte r, const GLubyte g, const GLubyte b) {
+        vertices[0].setPosition(x, y);
+        vertices[1].setPosition(x + 0.1f, y);
+        vertices[2].setPosition(x + 0.1f, y + 0.1f);
+        vertices[3].setPosition(x, y + 0.1f);
+
+        setColor(r, g, b);
+    }
+
+    void setColor(GLubyte r, GLubyte g, GLubyte b) {
+        for (Vertex& vertex : vertices)
+            vertex.setColor(r, g, b);
+    }
+
+    std::pair<GLfloat, GLfloat> getPosition() const {
+        return std::make_pair(vertices[0].positions[0], vertices[0].positions[1]);
+    }
+};

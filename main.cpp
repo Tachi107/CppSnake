@@ -1,0 +1,149 @@
+#include "Renderer"
+#include <GLFW/glfw3.h>
+#include <iostream>
+#include <array>
+#include <algorithm>
+#include "Snake"
+#include "Quad"
+#include "Apple"
+/*
+ * Lo schermo in OpenGL è organizzato come un piano cartesiano, coi relativi quadranti,
+ * e l'origine al centro della finestra, tutto compreso tra +1 e -1.
+ * Di conseguenza il bordo in alto a destra sarà (+1; +1)
+ * e il bordo in basso a sinistra sarà a (-1, -1).
+ */
+
+GLFWwindow* initGl(const int width, const int height, const char* const title) {
+    if (!glfwInit())
+        return nullptr;
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    GLFWwindow* window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+    if (!window) {
+        glfwTerminate();
+        return nullptr;
+    }
+    glfwMakeContextCurrent(window);
+    glfwSwapInterval(1);    // V-sync
+    if (glewInit())
+        return nullptr;
+    return window;
+}
+
+void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
+    std::cerr << std::hex << (type == GL_DEBUG_TYPE_ERROR ? "ERROR: " : "WARNING: ") << "type: 0x" << type
+              << ", severity: 0x" << severity << ", " << message << std::endl;
+}
+
+void enableGlDebug() {
+    std::cout << glGetString(GL_VERSION) << std::endl;
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(MessageCallback, nullptr);
+}
+
+// Dichiarazione in questo file cpp delle variabili statiche
+uint8_t Snake::direction;
+uint8_t Snake::previousDirection;
+std::vector<GLfloat> Snake::horizontalPositions;
+std::vector<GLfloat> Snake::verticalPositions;
+std::vector<Quad> Snake::snake;
+size_t Snake::length;
+uint8_t Snake::score;
+Quad Apple::apple;
+GLfloat Apple::horizontalPosition;
+GLfloat Apple::verticalPosition;
+GLubyte Snake::r, Snake::g, Snake::b;
+GLubyte Snake::rIncrement, Snake::gIncrement, Snake::bIncrement;
+
+
+int main() {
+	GLFWwindow* window = initGl(720, 720, "Snake");
+    if (window == nullptr)
+        return EXIT_FAILURE;
+    //enableGlDebug();
+
+    constexpr GLsizei maxQuads = 2000;
+    constexpr GLsizei maxVertices = 4 * maxQuads;
+    constexpr GLsizei maxIndices = 6 * maxQuads;
+
+
+
+	// Il vertexBuffer appena creato è già boundato
+	DynamicVertexBuffer dynVertexBuffer(maxVertices * sizeof(Vertex));
+
+	// Creo un layout in cui definisco l'arrangiamento del vertex buffer
+	VertexBufferLayout layout;
+    layout.add(Vertex::positionCount, GL_FLOAT);
+    layout.add(Vertex::colorCount, GL_UNSIGNED_BYTE);
+
+	VertexArray vertexArray;
+	vertexArray.addBuffer(dynVertexBuffer, layout);
+
+    // Gli indici dei vertici necessari per disegnare i triangoli che andranno a costituire i quadrati
+    std::array<GLuint, maxIndices> indices = IndexBuffer::genIndices<maxIndices>();
+	IndexBuffer indexBuffer(indices);
+
+	Shader shader("./res/vertex.shader", "./res/fragment.shader");
+	shader.bind();
+
+	Renderer::setClearColor(static_cast<GLubyte>(22), 22, 22);
+
+	Snake::create();
+	Apple::create();
+
+	/* Loop until the user closes the window */
+	while (!glfwWindowShouldClose(window)) {
+		/* Render here */
+		Renderer::clear();
+
+		Snake::checkMove();
+
+		std::vector<Quad> data;
+		data.reserve(Snake::snake.size() + 1);  // 1 è il numero di mele
+		data.insert(data.end(), Snake::snake.begin(), Snake::snake.end());
+		data.insert(data.end(), Apple::apple);
+		dynVertexBuffer.setData(data);
+
+		if (Apple::checkCollision(Snake::snake.front())) {
+            Apple::create();
+		    Snake::addQuad();
+		}
+
+		if (Snake::checkCollision())
+		    glfwSetWindowShouldClose(window, GLFW_TRUE);
+
+        if (Snake::score == 107)
+            Snake::RGB();
+
+		Renderer::draw(vertexArray, indexBuffer, shader);
+
+		/* Swap front and back buffers */
+		glfwSwapBuffers(window);
+
+		/* Poll for and process events */
+		glfwPollEvents();
+		glfwSetKeyCallback(window, Snake::key_callback);
+	}
+	std::cout << "Punteggio: " << static_cast<short>(Snake::score) << std::endl;
+	glfwTerminate();
+}
+/*
+ * Documentazione
+ *
+ * TheCherno
+ * docs.gl
+ * glfw.org
+ * Ricerche varie su Google
+ * https://www.glfw.org/docs/latest/input_guide.html
+ */
+/*
+ * Per compilare:
+ * g++ $(pkg-config --cflags glfw3 gl) main.cpp -o main $(pkg-config --static --libs glfw3 gl) /usr/lib64/libGLEW.a -std=c++17
+ */
+
+/*
+ * Posso fare uno snake con membri quad composti da vertex
+ *
+ * Se mangiata, chiamo una funzione che genera un quadrato che viene accodato al vector dello snake
+ */
