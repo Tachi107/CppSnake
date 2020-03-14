@@ -6,12 +6,6 @@
 #include "Snake"
 #include "Quad"
 #include "Apple"
-/*
- * Lo schermo in OpenGL è organizzato come un piano cartesiano, coi relativi quadranti,
- * e l'origine al centro della finestra, tutto compreso tra +1 e -1.
- * Di conseguenza il bordo in alto a destra sarà (+1; +1)
- * e il bordo in basso a sinistra sarà a (-1, -1).
- */
 
 GLFWwindow* initGl(const int width, const int height, const char* const title) {
     if (!glfwInit())
@@ -129,21 +123,6 @@ int main() {
 	glfwTerminate();
 }
 /*
- * Documentazione
- *
- * TheCherno
- * docs.gl
- * glfw.org
- * Ricerche varie su Google
- * https://www.glfw.org/docs/latest/input_guide.html
- */
-/*
- * Per compilare:
+ * To compile:
  * g++ $(pkg-config --cflags glfw3 gl) main.cpp -o main $(pkg-config --static --libs glfw3 gl) /usr/lib64/libGLEW.a -std=c++17
- */
-
-/*
- * Posso fare uno snake con membri quad composti da vertex
- *
- * Se mangiata, chiamo una funzione che genera un quadrato che viene accodato al vector dello snake
  */
