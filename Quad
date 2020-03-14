@@ -6,8 +6,8 @@ struct Quad {
     Vertex vertices[4];
 
     /*
-     * Questa funzione crea un quadrato prendendo come punto di partenza le coordinate in basso a sinistra,
-     * per poi definire le coordinate degli altri tre vertici distanziandosi un po' da quel punto
+     * This function creates a quad using the coordinates at the bottom left as the starting point,
+     * and then defining the coordinates of the other three vertices by moving a little away from that point
      */
     void make(const GLfloat x, const GLfloat y) {
         vertices[0].setPosition(x, y);
