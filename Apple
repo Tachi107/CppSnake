@@ -2,8 +2,6 @@
 #include "Random"
 #include "Quad"
 
-//Colore: 183, 28, 28
-//        255, 28, 43
 class Apple {
 public:
     static Quad apple;
