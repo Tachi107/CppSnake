@@ -36,7 +36,7 @@ void enableGlDebug() {
     glDebugMessageCallback(MessageCallback, nullptr);
 }
 
-// Dichiarazione in questo file cpp delle variabili statiche
+// Declaring static variables in this cpp unit
 uint8_t Snake::direction;
 uint8_t Snake::previousDirection;
 std::vector<GLfloat> Snake::horizontalPositions;
@@ -52,7 +52,7 @@ GLubyte Snake::rIncrement, Snake::gIncrement, Snake::bIncrement;
 
 
 int main() {
-	GLFWwindow* window = initGl(720, 720, "Snake");
+	GLFWwindow* window = initGl(720, 720, "CppSnake");
     if (window == nullptr)
         return EXIT_FAILURE;
     //enableGlDebug();
@@ -63,10 +63,9 @@ int main() {
 
 
 
-	// Il vertexBuffer appena creato è già boundato
+	
 	DynamicVertexBuffer dynVertexBuffer(maxVertices * sizeof(Vertex));
 
-	// Creo un layout in cui definisco l'arrangiamento del vertex buffer
 	VertexBufferLayout layout;
     layout.add(Vertex::positionCount, GL_FLOAT);
     layout.add(Vertex::colorCount, GL_UNSIGNED_BYTE);
@@ -74,7 +73,7 @@ int main() {
 	VertexArray vertexArray;
 	vertexArray.addBuffer(dynVertexBuffer, layout);
 
-    // Gli indici dei vertici necessari per disegnare i triangoli che andranno a costituire i quadrati
+    // Indices necessary to draw all triangles making the quads
     std::array<GLuint, maxIndices> indices = IndexBuffer::genIndices<maxIndices>();
 	IndexBuffer indexBuffer(indices);
 
@@ -88,13 +87,12 @@ int main() {
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window)) {
-		/* Render here */
 		Renderer::clear();
 
 		Snake::checkMove();
 
 		std::vector<Quad> data;
-		data.reserve(Snake::snake.size() + 1);  // 1 è il numero di mele
+		data.reserve(Snake::snake.size() + 1);  // 1 is the number of apples
 		data.insert(data.end(), Snake::snake.begin(), Snake::snake.end());
 		data.insert(data.end(), Apple::apple);
 		dynVertexBuffer.setData(data);
