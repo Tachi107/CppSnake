@@ -1,8 +1,8 @@
 #pragma once
 #include <GL/glew.h>
-#include "VertexArray"
-#include "IndexBuffer"
-#include "Shader"
+#include "VertexArray.hpp"
+#include "IndexBuffer.hpp"
+#include "Shader.hpp"
 
 class Renderer {
 public:
