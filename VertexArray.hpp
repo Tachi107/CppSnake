@@ -1,7 +1,7 @@
 #pragma once
 
-#include "VertexBuffer"
-#include "VertexBufferLayout"
+#include "VertexBuffer.hpp"
+#include "VertexBufferLayout.hpp"
 
 /*
  * Il vertex array collega l'impostazione del buffer (bind e data) in un unico comando.
