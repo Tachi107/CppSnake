@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <GLFW/glfw3.h>
-#include "Quad"
+#include "Quad.hpp"
 
 /*
  * La classe è statica in quanto la funzione key_callback dev'essere passata in glfwSetKeyCallback
