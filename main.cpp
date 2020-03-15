@@ -1,11 +1,11 @@
-#include "Renderer"
+#include "Renderer.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <array>
 #include <algorithm>
-#include "Snake"
-#include "Quad"
-#include "Apple"
+#include "Snake.hpp"
+#include "Quad.hpp"
+#include "Apple.hpp"
 
 GLFWwindow* initGl(const int width, const int height, const char* const title) {
     if (!glfwInit())
