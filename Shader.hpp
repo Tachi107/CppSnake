@@ -5,7 +5,7 @@
 #include <iostream>
 #include <utility>
 #include <unordered_map>
-#include <GL/glew.h>
+#include "vendor/glad/include/glad/glad.h"
 
 class Shader {
 	GLuint id;

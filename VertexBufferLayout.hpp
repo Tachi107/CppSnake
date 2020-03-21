@@ -1,5 +1,5 @@
 #pragma once
-#include <GL/glew.h>
+#include "vendor/glad/include/glad/glad.h"
 #include <vector>
 
 struct VertexBufferElement {
