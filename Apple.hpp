@@ -1,6 +1,6 @@
 #pragma once
-#include "Random"
-#include "Quad"
+#include "Random.hpp"
+#include "Quad.hpp"
 
 class Apple {
 public:
