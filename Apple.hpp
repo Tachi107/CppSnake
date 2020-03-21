@@ -20,6 +20,6 @@ public:
 
         return
             ((quadHorizontalPosition >= horizontalPosition - 0.09f) && (quadHorizontalPosition <= horizontalPosition + 0.09f))
-            && ((quadVerticalPosition >= verticalPosition - 0.09f) &&(quadVerticalPosition <= verticalPosition + 0.09f));
+            && ((quadVerticalPosition >= verticalPosition - 0.09f) && (quadVerticalPosition <= verticalPosition + 0.09f));
     }
 };
