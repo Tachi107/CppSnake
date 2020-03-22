@@ -27,3 +27,5 @@ set(HEADER_FILES Apple.hpp IndexBuffer.hpp Quad.hpp Random.hpp Renderer.hpp Shad
 add_executable("${PROJECT_NAME}" main.cpp ${HEADER_FILES})
 
 target_link_libraries(${PROJECT_NAME} glad glfw ${OPENGL_LIBRARIES} ${GLFW_LIBRARIES})
+
+file(COPY ${PROJECT_SOURCE_DIR}/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
