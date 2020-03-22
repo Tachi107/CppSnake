@@ -20,8 +20,8 @@ GLFWwindow* initGl(const int width, const int height, const char* const title) {
     }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);    // V-sync
-    if (glewInit())
-        return nullptr;
+	if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
+		return nullptr;
     return window;
 }
 
@@ -120,7 +120,3 @@ int main() {
 	std::cout << "Punteggio: " << static_cast<short>(Snake::score) << std::endl;
 	glfwTerminate();
 }
-/*
- * To compile:
- * g++ $(pkg-config --cflags glfw3 gl) main.cpp -o main $(pkg-config --static --libs glfw3 gl) /usr/lib64/libGLEW.a -std=c++17
- */

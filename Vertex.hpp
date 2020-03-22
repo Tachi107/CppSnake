@@ -1,5 +1,5 @@
 #pragma once
-#include "vendor/glad/include/glad/glad.h"
+#include <glad/glad.h>
 
 struct Vertex {
     static constexpr GLubyte positionCount = 2;
