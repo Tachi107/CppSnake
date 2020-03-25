@@ -56,7 +56,7 @@ int main() {
 	GLFWwindow* window = initGl(720, 720, "CppSnake");
 	if (window == nullptr)
 		return EXIT_FAILURE;
-	//enableGlDebug();
+	//enableGlDebug(); Doesn't work with current version of glad; if you need to, download the debug version from https://glad.dav1d.de
 
 	{
 		constexpr GLsizei maxQuads = 2000;
@@ -119,6 +119,6 @@ int main() {
 			glfwSetKeyCallback(window, Snake::key_callback);
 		}
 		std::cout << "Punteggio: " << static_cast<short>(Snake::score) << std::endl;
-	}	// To fix the segfault when glfwterminating
+	}	// Free all glObjects befor calling glfwTerminate to avoid them free already freed glResources
 	glfwTerminate();
 }
