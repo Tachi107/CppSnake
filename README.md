@@ -31,4 +31,4 @@ make
 Open a git command promt, and run `git clone --recurse-submodules https://github.com/Tachi107/CppSnake.git`.
 Then, open CMake-GUI and select the downloaded repository as the source folder, and another folder of choice as the build folder.
 Then, click on Configure and select the compiler you prefer, and wait until CMake has finished loading. Then, click Conigure again and lastly click on Generate to build the project.
-Now you need to build the project. If you choose Visual Studio in CMake, you'll just need to open the solution and build it as any other VS project.
+Now you need to build the project files. If you choose Visual Studio in CMake, you'll just need to open the solution and build it as any other VS project.
