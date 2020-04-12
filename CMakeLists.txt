@@ -30,8 +30,7 @@ add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
 
 
-set(HEADER_FILES Apple.hpp IndexBuffer.hpp Quad.hpp Random.hpp Renderer.hpp Shader.hpp Snake.hpp Vertex.hpp VertexArray.hpp VertexBuffer.hpp VertexBufferLayout.hpp)
-add_executable("${PROJECT_NAME}" main.cpp ${HEADER_FILES})
+add_executable("${PROJECT_NAME}" main.cpp Apple.hpp IndexBuffer.hpp Quad.hpp Random.hpp Renderer.hpp Shader.hpp Snake.hpp Vertex.hpp VertexArray.hpp VertexBuffer.hpp VertexBufferLayout.hpp)
 
 target_link_libraries(${PROJECT_NAME} glad glfw ${OPENGL_LIBRARIES} ${GLFW_LIBRARIES})
 
