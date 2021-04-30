@@ -26,11 +26,11 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "GLFW lib only")
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "GLFW lib only")
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "GLFW lib only")
 set(GLFW_BUILD_INSTALL OFF CACHE BOOL "GLFW lib only")
-add_subdirectory(vendor/glfw)
-add_subdirectory(vendor/glad)
+add_subdirectory(subprojects/glfw)
+add_subdirectory(subprojects/glad)
 
 
-add_executable("${PROJECT_NAME}" main.cpp Apple.hpp IndexBuffer.hpp Quad.hpp Random.hpp Renderer.hpp Shader.hpp Snake.hpp Vertex.hpp VertexArray.hpp VertexBuffer.hpp VertexBufferLayout.hpp)
+add_executable("${PROJECT_NAME}" main.cpp)
 
 target_link_libraries(${PROJECT_NAME} glad glfw ${OPENGL_LIBRARIES} ${GLFW_LIBRARIES})
 
