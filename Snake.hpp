@@ -31,7 +31,7 @@ public:
     static uint8_t score;
 
 public:
-    static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    static void key_callback(GLFWwindow* /*window*/, int key, int /*scancode*/, int action, int /*mods*/) {
         if (key == GLFW_KEY_W && action == GLFW_PRESS) {
             direction = directions::UP;
         }

@@ -1,6 +1,8 @@
 #pragma once
-#include <glad/glad.h>
+#include <glbinding/gl/gl.h>
 #include <array>
+
+using namespace gl;
 
 class IndexBuffer {
 private:

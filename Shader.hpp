@@ -5,7 +5,9 @@
 #include <iostream>
 #include <utility>
 #include <unordered_map>
-#include <glad/glad.h>
+#include <glbinding/gl/gl.h>
+
+using namespace gl;
 
 class Shader {
 	GLuint id;
@@ -79,7 +81,7 @@ private:
         return program;
     }
 
-    static unsigned compileShader(const unsigned int type, const std::string &source) {
+    static unsigned compileShader(const GLenum type, const std::string &source) {
         // Inizio a creare lo shader
         GLuint id = glCreateShader(type);
         const GLchar* src = source.c_str();
@@ -98,7 +100,7 @@ private:
             char* errorMessage = static_cast<char*>(alloca(length * sizeof(char)));
             // Mi restituisce l'errore dello shader; gli passo l'id, la massima lunghezza del buffer, mi scrive (di nuovo) la lunghezza dell'errore, e il posto in cui scrivere l'errore
             glGetShaderInfoLog(id, length, &length, errorMessage);
-            std::cerr << "Failed to compile a shader (" << type << ")\n" << errorMessage << std::endl;
+            std::cerr << "Failed to compile a shader (" << static_cast<GLuint>(type) << ")\n" << errorMessage << std::endl;
             // Ha fallito, tanto vale eliminarlo
             glDeleteShader(id);
         }

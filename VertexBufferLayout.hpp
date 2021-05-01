@@ -1,6 +1,8 @@
 #pragma once
-#include <glad/glad.h>
+#include <glbinding/gl/gl.h>
 #include <vector>
+
+using namespace gl;
 
 struct VertexBufferElement {
     GLuint type;
@@ -8,13 +10,13 @@ struct VertexBufferElement {
 
     static inline GLsizei sizeOfGlType(const GLuint type) {
         switch (type) {
-            case GL_FLOAT:          return 4;
-            case GL_UNSIGNED_INT:   return 4;
-            case GL_UNSIGNED_BYTE:  return 1;
-            case GL_INT:            return 4;
-            case GL_BYTE:           return 1;
-            case GL_SHORT:          return 2;
-            case GL_UNSIGNED_SHORT: return 2;
+            case static_cast<GLuint>(GL_FLOAT):          return 4;
+            case static_cast<GLuint>(GL_UNSIGNED_INT):   return 4;
+            case static_cast<GLuint>(GL_UNSIGNED_BYTE):  return 1;
+            case static_cast<GLuint>(GL_INT):            return 4;
+            case static_cast<GLuint>(GL_BYTE):           return 1;
+            case static_cast<GLuint>(GL_SHORT):          return 2;
+            case static_cast<GLuint>(GL_UNSIGNED_SHORT): return 2;
         }
         return 0;
     }

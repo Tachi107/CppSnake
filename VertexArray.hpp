@@ -47,7 +47,7 @@ public:
             const auto& element = elements[i];
             // Ora che ho selezionato e riempito il buffer posso chiamare la funzione che definisce gli attributi dei vertici del triangolo (posizione, colore, texture ecc)
             // L'indice dell'attributo a cui mi sto riferendo (coordinate) (se ho più di un attributo, saprò poi quale sarà l'indice di ognuno di essi), numero di float per coordinata, tipo di dati, se devo normalizzare un numero (se ho un colore, 0 - 255, lui me lo trasforma in un float leggibile dalla gpu), numero di byte di distanza tra una coordinata e l'altra, posizione in byte dell'attributo che sto settando (se ho 2 float per le coordinate, 8 per il colore, e 12 per il soos, le coordinate saranno a 0, il colore a (float * 2 = 8), e il soos a (8 + sizeof(colore) = 16))
-            glVertexAttribPointer(i, element.count, element.type, GL_FALSE, layout.getStride(), (const void*)offset);
+            glVertexAttribPointer(i, element.count, static_cast<GLenum>(element.type), GL_FALSE, layout.getStride(), (const void*)offset);
             offset += element.count * VertexBufferElement::sizeOfGlType(element.type); // 3 * sizeof(float)
             glEnableVertexAttribArray(i);
         }

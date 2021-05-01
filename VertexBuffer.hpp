@@ -1,7 +1,9 @@
 #pragma once
-#include <glad/glad.h>
+#include <glbinding/gl/gl.h>
 #include <array>
 #include <vector>
+
+using namespace gl;
 
 class VertexBuffer {
 protected:

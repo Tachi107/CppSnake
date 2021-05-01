@@ -1,5 +1,7 @@
 #pragma once
-#include <glad/glad.h>
+#include <glbinding/gl/gl.h>
+
+using namespace gl;
 
 struct Vertex {
     static constexpr GLubyte positionCount = 2;

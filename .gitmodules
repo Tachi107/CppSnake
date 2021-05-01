@@ -2,3 +2,7 @@
 	path = subprojects/glfw
 	url = https://github.com/glfw/glfw.git
 	branch = latest
+[submodule "subprojects/glbinding"]
+	path = subprojects/glbinding
+	url = https://github.com/cginternals/glbinding.git
+	branch = v3

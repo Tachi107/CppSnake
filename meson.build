@@ -16,12 +16,23 @@ if compiler.get_id() == 'clang'
 	add_project_link_arguments('-fuse-ld=lld', language: 'cpp')
 endif
 
-cmake = import('cmake')
-
-glad_dep = cmake.subproject('glad').dependency('glad')
+glbinding_dep = dependency('glbinding', required: false)
+if not glbinding_dep.found()
+	cmake = import('cmake')
+	glbinding_options = cmake.subproject_options()
+	glbinding_options.add_cmake_defines({
+		'CMAKE_BUILD_TYPE': get_option('buildtype'),
+		'BUILD_SHARED_LIBS': false,
+		'OPTION_BUILD_TOOLS': false,
+		'OPTION_BUILD_EXAMPLES': false,
+		'OPTION_BUILD_WITH_LTO': true
+	})
+	glbinding_dep = cmake.subproject('glbinding', options: glbinding_options).dependency('glbinding')
+endif
 
 glfw_dep = dependency('glfw3', required: false)
 if not glfw_dep.found()
+	cmake = import('cmake')
 	glfw_options = cmake.subproject_options()
 	glfw_options.add_cmake_defines({
 		'CMAKE_BUILD_TYPE': get_option('buildtype'),
@@ -36,7 +47,7 @@ endif
 executable(
 	'CppSnake',
 	sources: 'main.cpp',
-	dependencies: [glad_dep, glfw_dep, dependency('gl'), compiler.find_library('dl', required: false)]
+	dependencies: [glbinding_dep, glfw_dep, dependency('gl'), compiler.find_library('dl', required: false)]
 )
 
 configure_file(input: 'res'/'fragment.shader', output: 'fragment.shader', copy: true)
